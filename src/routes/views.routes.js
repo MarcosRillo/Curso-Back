@@ -14,20 +14,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/realtimeproducts", async (req, res) => {
+router.get("/realTimeProducts", async (req, res) => {
   try {
-    const products = await productManager.getProducts();
-    if(products) {
-      res.render("realTimeProducts");
-    }
-    io.emit("products", products);
+    res.render("realTimeProducts");
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.post("/realtimeproducts", async (req, res) => {
+
+// Add Product
+router.post("/realTimeProducts", async (req, res) => {
   try {
     const { title, price, description } = req.body;
     await productManager.addProduct({ title, price, description });
@@ -40,7 +38,8 @@ router.post("/realtimeproducts", async (req, res) => {
   }
 });
 
-router.delete("/realtimeproducts", async (req, res) => {
+// Delete Product
+router.delete("/realTimeProducts", async (req, res) => {
   try {
     const { id } = req.body;
     await productManager.deleteProduct(Number(id));
