@@ -1,0 +1,26 @@
+{{! Form to add the product }}
+<div class="d-flex p-5">
+  <form class="d-flex flex-column gap-2 m-3" id="addForm">
+    <input type="text" id="title" placeholder="Product name" />
+    <input type="text" id="price" placeholder="Product price" />
+    <input
+      type="text"
+      id="description"
+      name="description"
+      placeholder="Product description"
+    />
+    <button type="submit">Add Product</button>
+  </form>
+</div>
+
+{{! Form to delete the product }}
+<form class="">
+  <input type="text" name="id" id="id" placeholder="Product ID" />
+  <button type="submit" class="">Delete Product</button>
+</form>
+
+{{! Show the products we receive }}
+<div id="productsList"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
