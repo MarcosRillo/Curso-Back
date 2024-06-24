@@ -4,9 +4,12 @@ import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import viewsRoutes from "./routes/views.routes.js";
 import __dirname from "./direname.js";
-import productManager from "./productManager.js";
+import productManager from "./dao/fileSystem/productManager.js";
+import { connectMongoDB } from "./config/mongoDB.config.js";
 
 const app = express();
+
+connectMongoDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -30,6 +33,6 @@ export const io = new Server(httpServer);
 
 io.on("connection", async (socket) => {
   console.log("New user connected");
-  const products = await productManager.getProducts()
-  io.emit('products', products)
+  const products = await productManager.getProducts();
+  io.emit("products", products);
 });
