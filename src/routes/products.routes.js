@@ -1,13 +1,13 @@
 import { Router } from "express";
 import productManager from "../dao/fileSystem/productManager.js";
 import { checkProductData } from "../middlewares/checkProductData.middleware.js";
+import productDao from "../dao/MongoDB/product.dao.js";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { limit } = req.query;
-    const products = await productManager.getProducts(limit);
+    const products = await productDao.getAll();
     res.status(200).json({ status: "success", products });
   } catch (error) {
     console.log(error);
