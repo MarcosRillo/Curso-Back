@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import productManager from "../dao/fileSystem/productManager.js";
+import productDao from "../dao/MongoDB/product.dao.js";
 
 export const checkProductData = async (req = request, res = response, next) => {
   try {
@@ -13,7 +13,7 @@ export const checkProductData = async (req = request, res = response, next) => {
       category,
     };
 
-    const products = await productManager.getProducts();
+    const products = await productDao.getAll();
     const productExists = products.find((p) => p.code === code);
     if (productExists)
       return res.status(400).json({
