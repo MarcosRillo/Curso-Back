@@ -19,17 +19,28 @@ const update = async (id, data) => {
   const cartUpdate = await cartModel.findByIdAndUpdate(id, data, {
     new: true,
   });
+  return cartUpdate;
 };
 
 const deleteOne = async (id) => {
-  const cart = await cartModel.deleteOne({_id: id})
+  const cart = await cartModel.deleteOne({ _id: id });
   return cart;
 };
 
+const addProductToCart = async (id, product) => {
+  const cart = await cartModel.findByIdAndUpdate(
+    id,
+    { $push: { products: product } },
+    { new: true }
+  );
+  return cart
+};
+
 export default {
-    getAll,
-    getById,
-    create,
-    update,
-    deleteOne
-}
+  getAll,
+  getById,
+  create,
+  update,
+  deleteOne,
+  addProductToCart
+};
